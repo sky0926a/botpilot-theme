@@ -1,0 +1,36 @@
+import { defineConfig } from "tsdown";
+
+export default defineConfig({
+  entry: {
+    "primitives/index": "src/components/primitives/index.ts",
+    "enhanced/index": "src/components/enhanced/index.ts",
+    "composite/index": "src/components/composite/index.ts",
+    "connected/index": "src/components/connected/index.ts",
+    "provider/index": "src/provider/index.ts",
+    "adapters/index": "src/adapters/index.ts",
+    "lib/index": "src/lib/index.ts",
+    "i18n/keys": "src/i18n/keys.ts",
+  },
+  format: "esm",
+  dts: true,
+  clean: true,
+  external: [
+    "react",
+    "react-dom",
+    "react/jsx-runtime",
+    /^@radix-ui\//,
+    "next-themes",
+    "next-intl",
+    /^next-intl\//,
+    /^next\//,
+    "lucide-react",
+    "cmdk",
+    "recharts",
+    "sonner",
+    "vaul",
+    "react-day-picker",
+    "date-fns",
+    "date-fns-tz",
+    "react-syntax-highlighter",
+  ],
+});

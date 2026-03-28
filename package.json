@@ -1,0 +1,158 @@
+{
+  "name": "@botpilot/theme",
+  "version": "0.1.0",
+  "description": "Shared UI component library and design tokens for BotPilot services",
+  "type": "module",
+  "main": "./dist/primitives/index.js",
+  "types": "./dist/primitives/index.d.ts",
+  "files": [
+    "dist",
+    "tokens.css",
+    "theme.css",
+    "i18n"
+  ],
+  "exports": {
+    "./primitives": {
+      "types": "./dist/primitives/index.d.ts",
+      "import": "./dist/primitives/index.js",
+      "default": "./dist/primitives/index.js"
+    },
+    "./enhanced": {
+      "types": "./dist/enhanced/index.d.ts",
+      "import": "./dist/enhanced/index.js",
+      "default": "./dist/enhanced/index.js"
+    },
+    "./composite": {
+      "types": "./dist/composite/index.d.ts",
+      "import": "./dist/composite/index.js",
+      "default": "./dist/composite/index.js"
+    },
+    "./connected": {
+      "types": "./dist/connected/index.d.ts",
+      "import": "./dist/connected/index.js",
+      "default": "./dist/connected/index.js"
+    },
+    "./provider": {
+      "types": "./dist/provider/index.d.ts",
+      "import": "./dist/provider/index.js",
+      "default": "./dist/provider/index.js"
+    },
+    "./adapters": {
+      "types": "./dist/adapters/index.d.ts",
+      "import": "./dist/adapters/index.js",
+      "default": "./dist/adapters/index.js"
+    },
+    "./lib": {
+      "types": "./dist/lib/index.d.ts",
+      "import": "./dist/lib/index.js",
+      "default": "./dist/lib/index.js"
+    },
+    "./tokens": "./tokens.css",
+    "./theme.css": "./theme.css",
+    "./i18n/defaults/*": "./i18n/defaults/*",
+    "./i18n/keys": {
+      "types": "./dist/i18n/keys.d.ts",
+      "import": "./dist/i18n/keys.js",
+      "default": "./dist/i18n/keys.js"
+    }
+  },
+  "scripts": {
+    "build": "tsdown && node scripts/postbuild.cjs",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@radix-ui/react-alert-dialog": "^1.0.0",
+    "@radix-ui/react-avatar": "^1.0.0",
+    "@radix-ui/react-checkbox": "^1.0.0",
+    "@radix-ui/react-collapsible": "^1.0.0",
+    "@radix-ui/react-dialog": "^1.0.0",
+    "@radix-ui/react-dropdown-menu": "^2.0.0",
+    "@radix-ui/react-label": "^2.0.0",
+    "@radix-ui/react-popover": "^1.0.0",
+    "@radix-ui/react-progress": "^1.0.0",
+    "@radix-ui/react-scroll-area": "^1.0.0",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-slider": "^1.0.0",
+    "@radix-ui/react-slot": "^1.0.0",
+    "@radix-ui/react-switch": "^1.0.0",
+    "@radix-ui/react-tabs": "^1.0.0",
+    "@radix-ui/react-tooltip": "^1.0.0",
+    "next-intl": "^4.0.0",
+    "next-themes": "^0.4.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@radix-ui/react-alert-dialog": {
+      "optional": true
+    },
+    "@radix-ui/react-avatar": {
+      "optional": true
+    },
+    "@radix-ui/react-checkbox": {
+      "optional": true
+    },
+    "@radix-ui/react-collapsible": {
+      "optional": true
+    },
+    "@radix-ui/react-dropdown-menu": {
+      "optional": true
+    },
+    "@radix-ui/react-popover": {
+      "optional": true
+    },
+    "@radix-ui/react-progress": {
+      "optional": true
+    },
+    "@radix-ui/react-scroll-area": {
+      "optional": true
+    },
+    "@radix-ui/react-slider": {
+      "optional": true
+    },
+    "@radix-ui/react-switch": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.0"
+  },
+  "devDependencies": {
+    "@radix-ui/react-alert-dialog": "^1.1.15",
+    "@radix-ui/react-avatar": "^1.1.11",
+    "@radix-ui/react-checkbox": "^1.3.3",
+    "@radix-ui/react-collapsible": "^1.1.12",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-dropdown-menu": "^2.1.16",
+    "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-popover": "^1.1.15",
+    "@radix-ui/react-progress": "^1.1.8",
+    "@radix-ui/react-scroll-area": "^1.2.10",
+    "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-slider": "^1.3.6",
+    "@radix-ui/react-slot": "^1.2.4",
+    "@radix-ui/react-switch": "^1.2.6",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "@radix-ui/react-tooltip": "^1.2.8",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "date-fns-tz": "^3.2.0",
+    "lucide-react": "^0.577.0",
+    "next-intl": "^4.8.3",
+    "tsdown": "^0.12.0",
+    "typescript": "^5.8.0"
+  },
+  "optionalDependencies": {
+    "cmdk": "^1.0.0",
+    "date-fns": "^4.0.0",
+    "lucide-react": "^0.400.0",
+    "next-themes": "^0.4.0",
+    "react-day-picker": "^9.0.0",
+    "recharts": "^3.0.0",
+    "sonner": "^2.0.0",
+    "vaul": "^1.0.0"
+  }
+}
