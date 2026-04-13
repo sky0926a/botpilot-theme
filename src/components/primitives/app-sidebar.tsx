@@ -20,12 +20,16 @@ interface AppSidebarProps {
     subtitle?: string;
     logo?: React.ReactNode;
   };
+  contextPanel?: React.ReactNode;
   navItems: NavItem[];
   pathname: string;
   onNavigate?: (href: string) => void;
   footer?: React.ReactNode;
   open?: boolean;
   onClose?: () => void;
+  desktopClassName?: string;
+  sidebarClassName?: string;
+  mobilePanelClassName?: string;
   linkComponent?: React.ComponentType<{
     href: string;
     onClick?: () => void;
@@ -36,12 +40,16 @@ interface AppSidebarProps {
 
 function AppSidebar({
   brand,
+  contextPanel,
   navItems,
   pathname,
   onNavigate,
   footer,
   open = false,
   onClose,
+  desktopClassName,
+  sidebarClassName,
+  mobilePanelClassName,
   linkComponent: LinkComp = "a" as unknown as React.ComponentType<{
     href: string;
     onClick?: () => void;
@@ -49,22 +57,31 @@ function AppSidebar({
     children: React.ReactNode;
   }>,
 }: AppSidebarProps) {
+  const activeHref = navItems
+    .filter((item) => pathname === item.href || pathname.startsWith(`${item.href}/`))
+    .sort((left, right) => right.href.length - left.href.length)[0]?.href;
+
   const sidebarContent = (
-    <aside className="flex flex-col w-56 h-full bg-card border-r border-border">
+    <aside
+      className={cn(
+        "flex h-full w-56 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground",
+        sidebarClassName
+      )}
+    >
       {/* Brand */}
-      <div className="p-4 border-b border-border flex items-center justify-between">
+      <div className="flex items-center justify-between border-b border-sidebar-border px-5 py-4">
         <div className="flex items-center gap-2.5">
           {brand.logo ?? (
-            <div className="size-7 rounded-md bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center text-[11px] font-extrabold text-black">
+            <div className="flex size-8 items-center justify-center rounded-[10px] bg-sidebar-primary text-[11px] font-extrabold text-sidebar-primary-foreground shadow-sm">
               B
             </div>
           )}
           <div>
-            <div className="text-sm font-semibold leading-tight">
+            <div className="text-sm font-semibold leading-tight text-sidebar-foreground">
               {brand.name}
             </div>
             {brand.subtitle && (
-              <div className="text-[11px] text-muted-foreground leading-tight">
+              <div className="text-[11px] leading-tight text-muted-foreground">
                 {brand.subtitle}
               </div>
             )}
@@ -73,7 +90,7 @@ function AppSidebar({
         {onClose && (
           <button
             onClick={onClose}
-            className="md:hidden p-1.5 rounded-md hover:bg-muted"
+            className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground md:hidden"
             aria-label="Close sidebar"
           >
             <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -83,10 +100,16 @@ function AppSidebar({
         )}
       </div>
 
+      {contextPanel && (
+        <div className="border-b border-sidebar-border px-4 py-4">
+          {contextPanel}
+        </div>
+      )}
+
       {/* Navigation */}
-      <nav className="flex-1 p-2 space-y-0.5 overflow-y-auto">
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-3">
         {navItems.map((item) => {
-          const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+          const isActive = activeHref === item.href;
           const Icon = item.icon;
           return (
             <LinkComp
@@ -94,16 +117,16 @@ function AppSidebar({
               href={item.href}
               onClick={() => {
                 onNavigate?.(item.href);
-                onClose?.();
+              onClose?.();
               }}
               className={cn(
-                "flex items-center gap-2.5 px-3 py-2 rounded-md text-sm transition-colors",
+                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] font-medium transition-colors",
                 isActive
-                  ? "bg-accent text-accent-foreground font-medium"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                  ? "bg-sidebar-accent text-sidebar-foreground shadow-sm"
+                  : "text-muted-foreground hover:bg-sidebar-accent/70 hover:text-sidebar-foreground"
               )}
             >
-              <Icon className="size-4 shrink-0" />
+              <Icon className="size-[18px] shrink-0" />
               {item.label}
             </LinkComp>
           );
@@ -112,7 +135,7 @@ function AppSidebar({
 
       {/* Footer */}
       {footer && (
-        <div className="p-3 border-t border-border">
+        <div className="border-t border-sidebar-border p-4">
           {footer}
         </div>
       )}
@@ -122,7 +145,7 @@ function AppSidebar({
   return (
     <>
       {/* Desktop sidebar */}
-      <div className="hidden md:flex md:fixed md:left-0 md:top-0 md:bottom-0 md:w-56 md:z-50">
+      <div className={cn("hidden md:fixed md:top-0 md:bottom-0 md:left-0 md:z-50 md:flex md:w-56", desktopClassName)}>
         {sidebarContent}
       </div>
 
@@ -130,11 +153,11 @@ function AppSidebar({
       {open && (
         <div className="fixed inset-0 z-50 md:hidden">
           <div
-            className="absolute inset-0 bg-black/50"
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={onClose}
             aria-hidden="true"
           />
-          <div className="relative z-10 h-full w-56">
+          <div className={cn("relative z-10 h-full w-56 border-r border-sidebar-border shadow-xl", mobilePanelClassName)}>
             {sidebarContent}
           </div>
         </div>
@@ -147,9 +170,14 @@ function AppSidebar({
  * AppContent — main content area paired with AppSidebar.
  * Adds the left margin to account for the fixed sidebar.
  */
-function AppContent({ className, children, ...props }: React.ComponentProps<"div">) {
+function AppContent({
+  className,
+  offsetClassName,
+  children,
+  ...props
+}: React.ComponentProps<"div"> & { offsetClassName?: string }) {
   return (
-    <div className={cn("md:ml-56 min-h-screen", className)} {...props}>
+    <div className={cn("min-h-screen bg-background md:ml-56", offsetClassName, className)} {...props}>
       {children}
     </div>
   );
@@ -166,10 +194,10 @@ function AppMobileHeader({
   onMenuClick: () => void;
 }) {
   return (
-    <header className="md:hidden sticky top-0 z-40 flex items-center gap-3 border-b bg-background px-4 py-3">
+    <header className="sticky top-0 z-40 flex items-center gap-3 border-b border-border/70 bg-background/95 px-4 py-4 backdrop-blur md:hidden">
       <button
         onClick={onMenuClick}
-        className="p-1.5 rounded-md hover:bg-muted"
+        className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
         aria-label="Open menu"
       >
         <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -196,12 +224,12 @@ function SidebarUserFooter({
   return (
     <div className="flex items-center justify-between">
       <div className="min-w-0">
-        <div className="text-xs font-medium truncate">{name}</div>
-        <div className="text-[11px] text-muted-foreground truncate">{email}</div>
+        <div className="truncate text-xs font-medium">{name}</div>
+        <div className="truncate text-[11px] text-muted-foreground">{email}</div>
       </div>
       <button
         onClick={onLogout}
-        className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors"
+        className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
         title="登出"
       >
         <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

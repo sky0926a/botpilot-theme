@@ -129,3 +129,10 @@ export {
   type NavItem,
   type AppSidebarProps,
 } from "./app-sidebar";
+
+export {
+  SettingsFieldRow,
+  SettingsCopyFieldRow,
+  WorkspaceListRow,
+  WorkspaceUserBar,
+} from "./workspace-surface";

@@ -10,7 +10,7 @@ function PageLayout({ className, ...props }: React.ComponentProps<"main">) {
   return (
     <main
       data-slot="page-layout"
-      className={cn("mx-auto w-full max-w-7xl px-6 py-8", className)}
+      className={cn("mx-auto w-full max-w-[1180px] px-5 py-8 sm:px-7 lg:px-10 lg:py-10 xl:py-12", className)}
       {...props}
     />
   );
@@ -23,7 +23,7 @@ function PageHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="page-header"
-      className={cn("space-y-1", className)}
+      className={cn("space-y-2", className)}
       {...props}
     />
   );
@@ -36,7 +36,7 @@ function PageTitle({ className, ...props }: React.ComponentProps<"h1">) {
   return (
     <h1
       data-slot="page-title"
-      className={cn("text-2xl font-bold tracking-tight", className)}
+      className={cn("text-[1.85rem] font-semibold tracking-[-0.03em] text-foreground", className)}
       {...props}
     />
   );
@@ -49,7 +49,7 @@ function PageDescription({ className, ...props }: React.ComponentProps<"p">) {
   return (
     <p
       data-slot="page-description"
-      className={cn("text-sm text-muted-foreground", className)}
+      className={cn("max-w-2xl text-sm leading-6 text-muted-foreground", className)}
       {...props}
     />
   );
@@ -62,7 +62,7 @@ function PageSection({ className, ...props }: React.ComponentProps<"section">) {
   return (
     <section
       data-slot="page-section"
-      className={cn("space-y-3", className)}
+      className={cn("space-y-4", className)}
       {...props}
     />
   );
@@ -76,7 +76,7 @@ function PageSectionTitle({ className, ...props }: React.ComponentProps<"h2">) {
     <h2
       data-slot="page-section-title"
       className={cn(
-        "text-sm font-medium text-muted-foreground flex items-center gap-2",
+        "flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/90",
         className
       )}
       {...props}
