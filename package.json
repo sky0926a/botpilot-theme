@@ -27,6 +27,11 @@
       "import": "./dist/composite/index.js",
       "default": "./dist/composite/index.js"
     },
+    "./action-dialog": {
+      "types": "./dist/action-dialog.d.ts",
+      "import": "./dist/action-dialog.js",
+      "default": "./dist/action-dialog.js"
+    },
     "./connected": {
       "types": "./dist/connected/index.d.ts",
       "import": "./dist/connected/index.js",

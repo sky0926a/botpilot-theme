@@ -5,6 +5,7 @@ export default defineConfig({
     "primitives/index": "src/components/primitives/index.ts",
     "enhanced/index": "src/components/enhanced/index.ts",
     "composite/index": "src/components/composite/index.ts",
+    "action-dialog": "src/components/composite/action-dialog.tsx",
     "connected/index": "src/components/connected/index.ts",
     "provider/index": "src/provider/index.ts",
     "adapters/index": "src/adapters/index.ts",

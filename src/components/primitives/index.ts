@@ -131,8 +131,15 @@ export {
 } from "./app-sidebar";
 
 export {
+  WorkspaceActionRow,
+  WorkspaceCollectionCard,
+  WorkspaceDisclosureCard,
+  WorkspaceIdentityBlock,
   SettingsFieldRow,
   SettingsCopyFieldRow,
   WorkspaceListRow,
+  WorkspaceNoticePanel,
+  WorkspaceSettingsShell,
   WorkspaceUserBar,
+  type WorkspaceSettingsNavItem,
 } from "./workspace-surface";

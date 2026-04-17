@@ -36,3 +36,20 @@ for (const entry of fs.readdirSync(distDir, { withFileTypes: true })) {
     fs.copyFileSync(path.join(subDir, dtsFiles[0]), indexDts);
   }
 }
+
+// 3. Create stable top-level .d.ts aliases for hashed standalone entry files
+for (const file of fs.readdirSync(distDir)) {
+  if (!file.endsWith('.js') || file.endsWith('.js.map')) continue;
+
+  const stem = file.slice(0, -3);
+  const stableDts = path.join(distDir, `${stem}.d.ts`);
+  if (fs.existsSync(stableDts)) continue;
+
+  const hashedDts = fs
+    .readdirSync(distDir)
+    .find((candidate) => candidate.startsWith(`${stem}-`) && candidate.endsWith('.d.ts'));
+
+  if (hashedDts) {
+    fs.copyFileSync(path.join(distDir, hashedDts), stableDts);
+  }
+}
