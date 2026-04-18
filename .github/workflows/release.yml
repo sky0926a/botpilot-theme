@@ -16,6 +16,9 @@ jobs:
   release:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    environment:
+      name: production
+      url: https://github.com/sky0926a/botpilot-theme/releases/latest
     steps:
       - uses: actions/checkout@v4
 
